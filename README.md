@@ -3,8 +3,7 @@
 ## Homework
 Continue on your final projects.
 
-![image](wide.png)
-![image](mobile.png)
+![image](siteDesign.png)
 
 ## Tooling
 
@@ -107,7 +106,7 @@ function removeActiveClass(){
 
 Note the lack of animation.
 
-Start here.
+===== END REVIEW =====
 
 
 ### Image Carousel 
@@ -425,6 +424,8 @@ a[rel="alternate"] {
 
 
 ## Notes
+
+### Sticky Nav
 
 ### Links
 
