@@ -1,21 +1,16 @@
-# Foundations Session 8
+# Foundations Session 9
 
 ## Homework
-
-Start on your final projects. There are very few requirements for this project other than it must be a web page or series of web pages that incorporate the concepts and techniques covered in class.
-
-It is not required that you prepare a specific number of pages. Depending on the design goals, one good template could suffice for many pages and it is possible to spend as much time on a single page as on an entire site.
-
-Making the page "mobile friendly" is required as is at least one instance on DOM scripting.
-
+Continue on your final projects.
 
 ![image](wide.png)
 ![image](mobile.png)
 
-
 ## Tooling
 
-petershift 
+petershift:
+
+```
 Windows users for browser sync you must `\"` the package.json file so
 
 "scripts": {
@@ -24,18 +19,11 @@ Windows users for browser sync you must `\"` the package.json file so
  },
 
 notice also 'google chrome' becomes 'chrome' on windows
+```
 
 ```
-$ cd <session8>
+$ cd <session9>
 $ npm install
-```
-
-```
-npm install build-error-notifier --save-dev
-```
-
-```
-"sassy": "node-sass --watch sass --output app/css --source-map true 2>&1 | build-error-notifier",
 ```
 
 `$ npm run boom!`
@@ -43,296 +31,7 @@ npm install build-error-notifier --save-dev
 
 Review: 
 
-* Media Query - Mobile First
-* Variables
-* Responsive Main Nav
-* Show/Hide Nav JS
-* Animation with CSS
-* Variables
-
-Add new variables:
-
-```
-$max-width: 940px;
-
-$break-sm: 480px;
-$break-med: 768px;
-
-$radius: 4px;
-
-$link: #4e7c92;
-$hover: #df3030;
-$text: #333;
-
-$med-gray: #666;
-$light-gray: #ddd;
-$dk-yellow: #dbd1b5;
-$lt-yellow: #f8f7f3;
-```
-
-
-### Responsive Images
-
-iFrame and images need to expand and contract to fit. 
-
-Note the inline width and height parameters for the iFrame in the HTML.
-
-_base.scss:
-
-```css
-img,
-iframe {
-  width: 100%;
-}
-```
-
-Also add some basic styling to _base.scss:
-
-```
-p {
-	margin: 12px 0;
-}
-
-h2 {
-	margin-bottom: 12px;
-	padding-bottom: 6px;
-	font-size: 24px;
-	letter-spacing: -1px;
-}
-
-h3, h4 {
-	font-size: 16px;
-	line-height: 1.25;
-	margin-bottom: 20px;
-}
-```
-
-
-
-## Columns for Content
-
-Examine the differences between index.html and alt-index.html.
-
-* Replaced content divs with section tags
-* Replaced content-main divs with article tags
-* Replaced content-sub divs with aside tags
-* Replaced footer div with footer tag
-* Replaced content-sub div with nav tag
-* Added links to sections of the document using [ids](http://demo.tutorialzine.com/2015/02/single-page-app-without-a-framework/#)
-
-### Demo
-
-In a new _structure.scss file:
-
-```css
-section {
-	max-width: 940px;
-	margin: 0 auto;
-	padding-bottom: 1.5em;
-}
-article {
- 	box-sizing: border-box;
-	float: left;
-	width: 60%;
-	padding-right: 24px;
-}
-aside {
-	float: right;
-	width: 40%;
-}
-```
-
-Apply the second breakpoint variable to medium screen sizes and above only:
-
-```css
-@media (min-width: $break-med) {
-	section {
-		max-width: 940px;
-		margin: 0 auto;
-		padding-bottom: 1.5em;
-	}
-	article {
-		box-sizing: border-box;
-		float: left;
-		width: 60%;
-		padding-right: 24px;
-	}
-	aside {
-		float: right;
-		width: 40%;
-	}
-}
-```
-
-### The Secondary div
-
-```css
-.secondary {
-	background: $lt-yellow;
-	border:1px solid $dk-yellow;
-	padding:1em;
-}
-```
-
-### Micro clearfix
-
-```css
-.clearfix:before,
-.clearfix:after {
-    content: " ";
-    display: table;
-}
-.clearfix:after {
-    clear: both;
-}
-```
-
-Add the clearfix to the section and secondary div:
-
-`<section class="clearfix">`
-
-`<div class="secondary clearfix">`
-
-
-### A Simple CSS Grid
-
-Remove the alterations to the html.
-
-Delete/comment everything from _structure.scss except the .secondary rule.
-
-```css
-section {
-	max-width: $max-width;
-	margin: 0 auto;
-	display: grid;
-	grid-template-columns: 60% 40%;
-}
-```
-
-```css
-section {
-	max-width: $max-width;
-	margin: 0 24px;
-	margin-bottom: 24px; 
-	display: grid;
-	grid-template-columns: 100%;
-	@media(min-width: $break-med){
-		margin: 0 auto;
-		margin-bottom: 24px;
-		grid-template-columns: 60% 37%;
-		grid-column-gap: 3%;
-	}
-}
-```
-
-### The Footer 
-
-in _footer.scss:
-
-```css
-footer {
-	margin-top: 40px;
-	padding-top: 40px;
-	background-color: $link;
-	min-height: 320px;
-	.content {
-		display: grid;
-		grid-template-columns: 60% 17% 17%;
-		grid-column-gap: 3%;
-		max-width: $max-width;
-		margin: 0 auto;
-		color: #fff;
-		a {
-			color: #fff;
-		}
-	}
-}
-```
-
-### Video Switcher - JavaScript
-
-Active class
-
-Format the video buttons
-
-```css
-.btn-list {
-	padding: 6px;
-	display: flex;
-	li {
-		margin-right: 18px;
-		margin-bottom: 16px;
-	}
-	.active {
-		border-radius: $radius;
-		background: $link;
-		color: #fff;
-		padding: 0.5rem;
-	}
-}
-```
-
-The old school JavaScript
-
-```
-$('.content-video a').on('click',function(){
-	$('.content-video a').removeClass('active');
-	$(this).addClass('active');
-	var videoToPlay = $(this).attr('href');
-	$('iframe').attr('src',videoToPlay);
-	console.log(videoToPlay);
-	return false;
- });
-```
-
-Create variables and spread the links into an array.
-
-```
-const videoLinks = document.querySelectorAll('.content-video a')
-const videoLinksArray = [...videoLinks]
-videoLinksArray.forEach( videoLink => videoLink.addEventListener('click', selectVideo ))
-```
-
-Add a function:
-
-```
-const videoLinks = document.querySelectorAll('.content-video a')
-const videoLinksArray = [...videoLinks]
-videoLinksArray.forEach( videoLink => videoLink.addEventListener('click', selectVideo ))
-
-function selectVideo(){
-	console.log(this)
-	event.preventDefault()
-}
-```
-
-Examine the nodelist and arry variables in the console.
-
-```
-function selectVideo(){
-	const videoToPlay = this.getAttribute('href')
-	console.log(videoToPlay)
-	event.preventDefault()
-}
-```
-
-Add the iFrame variable `const iFrame = document.querySelector('iframe')` and set its src attribute `iFrame.setAttribute('src', videoToPlay)`:
-
-```
-const iFrame = document.querySelector('iframe')
-const videoLinks = document.querySelectorAll('.content-video a')
-const videoLinksArray = [...videoLinks]
-videoLinksArray.forEach( videoLink => videoLink.addEventListener('click', selectVideo ))
-
-function selectVideo(){
-	const videoToPlay = this.getAttribute('href')
-	iFrame.setAttribute('src', videoToPlay)
-	console.log(iFrame)
-	event.preventDefault()
-}
-```
-
-Switch the active class:
+1) Video Switcher - JavaScript with Active class
 
 ```
 const iFrame = document.querySelector('iframe')
@@ -353,139 +52,41 @@ function removeActiveClass(){
 }
 ```
 
-
-
-### Nav Sub
-
-Integrate the JavaScript for nav-sub into the layout.
-
-in _navsub.scss:
+2) JavaScript and css for nav-sub 
 
 ```css
 .nav-sub {
-	padding: 10px 20px;
-	background-color: $lt-yellow;
-	border: 1px solid $dk-yellow;
-	@media (min-width: $break-med){
-		width: 40%;
-		float: right;
-		border-radius: $radius;
-		margin: 0;
-		float: none;
-		width: auto;
-	}
-	ul {
-		display:none;
-	}
-	li:first-child ul {
-		display:block;
-	}
-	> li > a { 
-		font-weight:bold; 
-	}
-	ul li {
-		padding-left:12px;
-	}
+    padding: 10px 20px;
+    background-color: $lt-yellow;
+    border: 1px solid $dk-yellow;
+    @media (min-width: $break-med){
+        width: 40%;
+        float: right;
+        border-radius: $radius;
+        margin: 0;
+        float: none;
+        width: auto;
+    }
+    ul {
+        display:none;
+    }
+    li:first-child ul {
+        display:block;
+    }
+    > li > a { 
+        font-weight:bold; 
+    }
+    ul li {
+        padding-left:12px;
+    }
+    .active {display: block !important}
 }
 ```
 
 Note the `>` [selector](https://www.w3schools.com/cssref/css_selectors.asp). Also see [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Simple_selectors)
 
-Add class `.active {display: block !important}` to _nav-sub.scss:
-
-```css
-.nav-sub {
-	padding: 10px 20px;
-	background-color: $lt-yellow;
-	border: 1px solid $dk-yellow;
-	@media (min-width: $break-med){
-		width: 40%;
-		float: right;
-		border-radius: $radius;
-		margin: 0;
-		float: none;
-		width: auto;
-	}
-	ul {
-		display:none;
-	}
-	li:first-child ul {
-		display:block;
-	}
-	> li > a { 
-		font-weight:bold; 
-	}
-	ul li {
-		padding-left:12px;
-	}
-	.active {display: block !important}
-}
-
-```
-
-Accordion for Nav Sub. 
-
-Old school JavaScript:
-
-```js
-$('.nav-sub>li a').on('click tap', function(){
-	$('.nav-sub ul').slideUp();
-	$(this).next().slideToggle();
-	console.log(this);
-	return false;
-});
-```
-
-ES6 JavaScript. 
-
-```
-const subnavLinks = document.querySelectorAll('.nav-sub > li a')
-console.log(subnavLinks)
-const subnavLinksArray = [...subnavLinks]
-subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-
-function openAccordion(){
-	console.log(this)
-	event.preventDefault()
-}
-```
-
 [DOM Traversal](https://www.w3schools.com/jsref/dom_obj_document.asp)
-
-nextElementSibling, nextSibling, previousSibling, childNodes, firstChild ...
-
-```
-const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
-const subnavLinksArray = [...subnavLinks]
-subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-
-function openAccordion(){
-	this.nextElementSibling.classList.toggle('active')
-	event.preventDefault()
-}
-```
-
-Remove the active class from the DOM before applying with `removeActiveClass()`:
-
-```
-const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
-const subnavLinksArray = [...subnavLinks]
-subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-
-function openAccordion(){
-	removeActiveClass()
-	this.nextElementSibling.classList.toggle('active')
-	event.preventDefault()
-}
-
-function removeActiveClass(){
-	subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
-}
-```
-
-Important - we have broken the removeActiveClass() function for the video switcher.
-
-Set the initial state of the accordion with: `subnavLinksArray[0].nextElementSibling.classList.add('active')`
+nextElementSibling, nextSibling, previousSibling, childNodes, firstChild, etc.
 
 ```
 const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
@@ -504,17 +105,9 @@ function removeActiveClass(){
 }
 ```
 
-and remove the css created earlier:
-
-```
-	// li:first-child ul {
-	// 	display:block;
-	// }
-```
-
-Note the refresh behaviour.
-
 Note the lack of animation.
+
+Start here.
 
 
 ### Image Carousel 
