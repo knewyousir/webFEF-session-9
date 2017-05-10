@@ -39,15 +39,15 @@ const videoLinksArray = [...videoLinks]
 videoLinksArray.forEach( videoLink => videoLink.addEventListener('click', selectVideo ))
 
 function selectVideo(){
-	removeActiveClass()
-	this.classList.add('active')
-	const videoToPlay = this.getAttribute('href')
-	iFrame.setAttribute('src', videoToPlay)
-	event.preventDefault()
+    removeActiveClass()
+    this.classList.add('active')
+    const videoToPlay = this.getAttribute('href')
+    iFrame.setAttribute('src', videoToPlay)
+    event.preventDefault()
 }
 
 function removeActiveClass(){
-	videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
+    videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
 }
 ```
 
@@ -106,7 +106,29 @@ function removeActiveClass(){
 
 Note the lack of animation.
 
-Note issue with CSS. Remove:
+===== END REVIEW =====
+
+### Subnav
+
+Fix animation with
+
+```
+    ul {
+        // display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: all .3s;
+```
+
+and
+
+```
+    .active { 
+        max-height: 500px;
+    }
+```
+
+Note issue with CSS. Remove initialization (we are doing this in the js):
 
 ```
 .nav-sub li:first-child ul {
@@ -114,7 +136,45 @@ Note issue with CSS. Remove:
 }
 ```
 
-===== END REVIEW =====
+Sticky Nav
+
+```
+nav {
+        ul {
+            position: fixed;
+```
+
+Note the issues on small screen.
+
+```
+nav {
+        ul {
+        // display: none;
+        transform: translateY(-200px);
+        max-height: 1px;
+        opacity: 0;
+        transition: all .3s;
+        background: $light-gray;
+        @media (min-width: $break-sm){
+            position: fixed;
+            width: 100%;
+```
+
+Followed by cosmetic adjustments:
+
+```
+header {
+    max-width: $max-width;
+    margin: 0 auto;
+    h1 {
+        font-size: 3rem;
+        @media (min-width: $break-sm){
+            padding-top: 50px;
+        }
+    }
+```
+
+Design note: its common to include a box shadow on elements that float atop.
 
 
 ### Image Carousel 
@@ -125,25 +185,25 @@ In _carousel.scss:
 
 ```css
 .secondary aside {
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		align-content: space-around;
-		li {
-			margin: 6px;
-		}
-		li img {
-			width: 80px;
-			padding: 10px;
-			background-color: #fff;
-			border: 1px solid $lt-yellow;
-			transition: all 0.2s linear;
-			&:hover {
-				transform: scale(1.1);
-				box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
-			}
-		}
-	}
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-around;
+        li {
+            margin: 6px;
+        }
+        li img {
+            width: 80px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid $lt-yellow;
+            transition: all 0.2s linear;
+            &:hover {
+                transform: scale(1.1);
+                box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+            }
+        }
+    }
 }
 ```
 
@@ -151,31 +211,31 @@ Note transition:
 
 ```css
 li img {
-	...
-	transition: all 0.2s linear;
-	&:hover {
-		transform: scale(1.1);
-		box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
-	}
+    ...
+    transition: all 0.2s linear;
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+    }
 ```
 
 Content Slider - examine image
 
 ```css
 figure {
-	position: relative;
-	figcaption {
-		padding: 6px;
-		background: rgba(255,255,255,0.7);
-		position: absolute;
-		bottom: 0;
-	}
-}	
+    position: relative;
+    figcaption {
+        padding: 6px;
+        background: rgba(255,255,255,0.7);
+        position: absolute;
+        bottom: 0;
+    }
+}   
 ```
 
 ### Image Carousel - JavaScript
 
-change the # links to point to high res images:
+Change the # links to point to high res images (first three only in this sample):
 
 ```
 <ul class="image-tn">
@@ -189,6 +249,8 @@ change the # links to point to high res images:
     <a href="img/pagoda.jpg"><img src="img/pagoda-tn.jpg" alt="" title="Link to original photo on Flickr" /></a>
   </li>
 ```
+
+Change the title text as well.
 
 Old school JavaScript:
 
@@ -210,9 +272,9 @@ const carousel = document.querySelector('figure img')
 carouselLinksArray.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 
 function runCarousel(){
-	const imageHref = this.getAttribute('href')
-	carousel.setAttribute('src', imageHref)
-	event.preventDefault()
+    const imageHref = this.getAttribute('href')
+    carousel.setAttribute('src', imageHref)
+    event.preventDefault()
 }
 ```
 
@@ -222,11 +284,11 @@ Find the appropriate traversal `const titleText = this.firstChild.title`:
 
 ```
 function runCarousel(){
-	const imageHref = this.getAttribute('href')
-	const titleText = this.firstChild.title
-	console.log(titleText)
-	carousel.setAttribute('src', imageHref)
-	event.preventDefault()
+    const imageHref = this.getAttribute('href')
+    const titleText = this.firstChild.title
+    console.log(titleText)
+    carousel.setAttribute('src', imageHref)
+    event.preventDefault()
 }
 ```
 
@@ -240,12 +302,12 @@ Set the innerHTML `carouselPara.innerHTML = titleText` of the paragraph:
 
 ```
 function runCarousel(){
-	const imageHref = this.getAttribute('href')
-	const titleText = this.firstChild.title
-	carouselPara.innerHTML = titleText
-	console.log(carouselPara)
-	carousel.setAttribute('src', imageHref)
-	event.preventDefault()
+    const imageHref = this.getAttribute('href')
+    const titleText = this.firstChild.title
+    carouselPara.innerHTML = titleText
+    console.log(carouselPara)
+    carousel.setAttribute('src', imageHref)
+    event.preventDefault()
 }
 ```
 
@@ -259,11 +321,11 @@ const carouselPara = document.querySelector('figcaption')
 carouselLinksArray.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 
 function runCarousel(){
-	const imageHref = this.getAttribute('href')
-	const titleText = this.firstChild.title
-	carouselPara.innerHTML = titleText
-	carousel.setAttribute('src', imageHref)
-	event.preventDefault()
+    const imageHref = this.getAttribute('href')
+    const titleText = this.firstChild.title
+    carouselPara.innerHTML = titleText
+    carousel.setAttribute('src', imageHref)
+    event.preventDefault()
 }
 ```
 
@@ -283,38 +345,50 @@ In _panels.scss:
 }
 ```
 
+Add padding (note the use of box-sizing):
+
+```
+.hentry {
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    width: 50%;
+    padding: 1rem;
+}
+```
+
 The little date area
 
 ```css
 .hentry {
-	position: relative;
-	float: left;
-	box-sizing: border-box;
-	width: 50%;
-	padding: 1rem;
-	.published {
-		position: absolute;
-		top: 250px;
-		left: 1rem;
-		display: block;
-		width: 30px;
-		padding: 5px 10px;
-		background-color: $link;
-		font-size: 10px;
-		text-align: center;
-		text-transform: uppercase;
-		color: #fff;
-	}
-	.day {
-		font-size: 32px;
-	}
-	h4 {
-		margin: 0 0 10px 60px;
-		font-size: 20px;
-	}
-	p {
-		margin-left: 60px;
-	}
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    width: 50%;
+    padding: 1rem;
+    .published {
+        position: absolute;
+        top: 250px;
+        left: 1rem;
+        display: block;
+        width: 30px;
+        padding: 5px 10px;
+        background-color: $link;
+        font-size: 10px;
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+    }
+    .day {
+        font-size: 32px;
+    }
+    h4 {
+        margin: 0 0 10px 60px;
+        font-size: 20px;
+    }
+    p {
+        margin-left: 60px;
+    }
 }
 ```
 
@@ -324,46 +398,46 @@ Adding abbr formatting, removing positioning and using flexbox and floats.
 
 ```css
 .hentries {
-	display: flex;
-	abbr {
-		text-decoration: none;
-		text-align: center;
-	}
-	.hentry {
-		float: left;
-		box-sizing: border-box;
-		width: 50%;
-		padding: 1rem;
-		.published {
-			float: left;
-			width: 24%;
-			box-sizing: border-box;
-		// position: absolute;
-		// top: 250px;
-		// left: 1rem;
-		display: block;
-		// width: 50px;
-		padding: 5px 10px;
-		background-color: $link;
-		font-size: 10px;
-		text-align: center;
-		text-transform: uppercase;
-		color: #fff;
-	}
-	.day {
-		font-size: 32px;
-	}
-	h4 {
-		// margin: 0 0 10px 60px;
-		font-size: 20px;
-	}
-	p {
-		// margin-left: 60px;
-		margin-top: 0;
-		float: right;
-		width: 70%;
-		box-sizing: border-box;
-	}
+    display: flex;
+    abbr {
+        text-decoration: none;
+        text-align: center;
+    }
+    .hentry {
+        float: left;
+        box-sizing: border-box;
+        width: 50%;
+        padding: 1rem;
+        .published {
+            float: left;
+            width: 24%;
+            box-sizing: border-box;
+        // position: absolute;
+        // top: 250px;
+        // left: 1rem;
+        display: block;
+        // width: 50px;
+        padding: 5px 10px;
+        background-color: $link;
+        font-size: 10px;
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+    }
+    .day {
+        font-size: 32px;
+    }
+    h4 {
+        // margin: 0 0 10px 60px;
+        font-size: 20px;
+    }
+    p {
+        // margin-left: 60px;
+        margin-top: 0;
+        float: right;
+        width: 70%;
+        box-sizing: border-box;
+    }
 }
 }
 ```
@@ -372,41 +446,41 @@ Final _panels.scss:
 
 ```
 .hentries {
-	display: flex;
-	abbr {
-		text-decoration: none;
-	}
-	.hentry {
-		float: left;
-		box-sizing: border-box;
-		width: 50%;
-		padding: 0 8px;
-		.published {
-			text-align: center;
-			float: left;
-			width: 24%;
-			box-sizing: border-box;
-			display: block;
-			padding: 2px 6px;
-			background-color: $link;
-			font-size: 10px;
-			text-align: center;
-			text-transform: uppercase;
-			color: #fff;
-		}
-		.day {
-			font-size: 32px;
-		}
-		h4 {
-			font-size: 20px;
-		}
-		p {
-			margin-top: 0;
-			float: right;
-			width: 70%;
-			box-sizing: border-box;
-		}
-	}
+    display: flex;
+    abbr {
+        text-decoration: none;
+    }
+    .hentry {
+        float: left;
+        box-sizing: border-box;
+        width: 50%;
+        padding: 0 8px;
+        .published {
+            text-align: center;
+            float: left;
+            width: 24%;
+            box-sizing: border-box;
+            display: block;
+            padding: 2px 6px;
+            background-color: $link;
+            font-size: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .day {
+            font-size: 32px;
+        }
+        h4 {
+            font-size: 20px;
+        }
+        p {
+            margin-top: 0;
+            float: right;
+            width: 70%;
+            box-sizing: border-box;
+        }
+    }
 }
 ```
 
@@ -414,8 +488,8 @@ Note RSS feed attribute selectors
 
 ```css
 a[rel="alternate"] {
-	padding-left: 20px;
-	background: url(../img/a-rss.png) no-repeat 0 50%;
+    padding-left: 20px;
+    background: url(../img/a-rss.png) no-repeat 0 50%;
 }
 ```
 
@@ -423,8 +497,8 @@ with svg:
 
 ```css
 a[rel="alternate"] {
-	padding-left: 20px;
-	background: url(../img/feed-icon.svg) no-repeat 0 50%;
+    padding-left: 20px;
+    background: url(../img/feed-icon.svg) no-repeat 0 50%;
     background-size: contain;
 }
 ```
@@ -610,41 +684,41 @@ the z-index for images and navbar
 
 ```css
 nav {
-	height: 40px;
-	width:100%;
-	background: $link;
-	font-size: 1rem;
-	position: fixed;
-	z-index: 20;
-	top: 0;
+    height: 40px;
+    width:100%;
+    background: $link;
+    font-size: 1rem;
+    position: fixed;
+    z-index: 20;
+    top: 0;
 ```
 
 media queries for transform effects (on hover)
 
 ```css
 .secondary .content-sub {
-	li {
-		float: left;
-		width: 33.333%;
-		padding: 10px;
-	}
+    li {
+        float: left;
+        width: 33.333%;
+        padding: 10px;
+    }
 
-	li img {
-		padding: 10px;
-		background-color: #fff;
-		border: 1px solid #bfbfbf;
-		border-bottom-color: #7c7c7a;
-		width: 100%;
-		height: auto;
-		@media (min-width: $breakpoint-med){
-			transition: all 0.2s linear;
-			&:hover {
-				-webkit-transform: scale(1.1);
-				transform: scale(1.1);
-				box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-			}
-		}
-	}
+    li img {
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #bfbfbf;
+        border-bottom-color: #7c7c7a;
+        width: 100%;
+        height: auto;
+        @media (min-width: $breakpoint-med){
+            transition: all 0.2s linear;
+            &:hover {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+                box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+            }
+        }
+    }
 }
 ```
 
