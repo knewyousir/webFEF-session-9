@@ -218,8 +218,6 @@ footer {
       width: auto; } }
   .nav-sub ul {
     display: none; }
-  .nav-sub li:first-child ul {
-    display: block; }
   .nav-sub > li > a {
     font-weight: bold; }
   .nav-sub ul li {

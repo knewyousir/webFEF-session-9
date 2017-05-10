@@ -57,7 +57,6 @@ subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', ope
 subnavLinksArray[0].nextElementSibling.classList.add('active')
 
 function openAccordion(){
-	console.log('hi')
 	removeActiveClass()
 	this.nextElementSibling.classList.toggle('active')
 	event.preventDefault()

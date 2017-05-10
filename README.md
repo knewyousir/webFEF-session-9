@@ -94,17 +94,25 @@ subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', ope
 subnavLinksArray[0].nextElementSibling.classList.add('active')
 
 function openAccordion(){
-	removeActiveClass()
-	this.nextElementSibling.classList.toggle('active')
-	event.preventDefault()
+    removeActiveClass()
+    this.nextElementSibling.classList.toggle('active')
+    event.preventDefault()
 }
 
 function removeActiveClass(){
-	subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+    subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
 }
 ```
 
 Note the lack of animation.
+
+Note issue with CSS. Remove:
+
+```
+.nav-sub li:first-child ul {
+  display: block;
+}
+```
 
 ===== END REVIEW =====
 
