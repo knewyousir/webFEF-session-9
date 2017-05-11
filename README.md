@@ -25,10 +25,14 @@ $ cd <session9>
 $ npm install
 ```
 
+Create a Git repo.
+
+Create and upload a branch to Github.
+
 `$ npm run boom!`
 
 
-Review: 
+### Review
 
 1) Video Switcher - JavaScript with Active class
 
@@ -107,6 +111,36 @@ function removeActiveClass(){
 Note the lack of animation.
 
 ===== END REVIEW =====
+
+### removeActiveClass
+
+This appears twice and the video switcher is broken. Let's unify this
+
+```
+function openAccordion(){
+    removeActiveClass('accordion')
+    this.nextElementSibling.classList.toggle('active')
+    event.preventDefault()
+}
+
+function removeActiveClass(locale){
+    if (locale === 'accordion') {
+        subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+    } else if (locale === 'video') {
+        videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
+    }
+}
+```
+
+```
+function selectVideo(){
+    removeActiveClass('video')
+    const videoToPlay = this.getAttribute('href')
+    iFrame.setAttribute('src', videoToPlay)
+    this.classList.add('active')
+    event.preventDefault()
+}
+```
 
 ### Subnav
 
@@ -507,9 +541,7 @@ a[rel="alternate"] {
 
 ## Notes
 
-### Sticky Nav
-
-### Links
+### Links Smooth Scrolling
 
 `<li><a href="#two">Summary</a></li>`
 
@@ -655,70 +687,6 @@ function jump(target, options) {
     return -c / 2 * (t * (t - 2) - 1) + b
   }
 
-}
-
-
-
-
-
-
-```
-
-
-
-Additional Tweaks for Mobile (need to test on phone)
-
-the tap event in JS
-
-```js
-$('.image-tn a').on('click tap', function(){
-    var imgsrc = $(this).attr('href');
-    var titleText = $(this).find('img').attr('title');
-    $('.content-slider > img').attr('src',imgsrc);
-    $('.caption').html(titleText);
-    return false;
-});
-```
-
-the z-index for images and navbar
-
-```css
-nav {
-    height: 40px;
-    width:100%;
-    background: $link;
-    font-size: 1rem;
-    position: fixed;
-    z-index: 20;
-    top: 0;
-```
-
-media queries for transform effects (on hover)
-
-```css
-.secondary .content-sub {
-    li {
-        float: left;
-        width: 33.333%;
-        padding: 10px;
-    }
-
-    li img {
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #bfbfbf;
-        border-bottom-color: #7c7c7a;
-        width: 100%;
-        height: auto;
-        @media (min-width: $breakpoint-med){
-            transition: all 0.2s linear;
-            &:hover {
-                -webkit-transform: scale(1.1);
-                transform: scale(1.1);
-                box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-            }
-        }
-    }
 }
 ```
 
