@@ -55,6 +55,8 @@ function removeActiveClass(){
 }
 ```
 
+Note that the removeActiveClass funtion seems broken.
+
 2) JavaScript and css for nav-sub 
 
 ```css
@@ -123,13 +125,6 @@ function openAccordion(){
     event.preventDefault()
 }
 
-function removeActiveClass(locale){
-    if (locale === 'accordion') {
-        subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
-    } else if (locale === 'video') {
-        videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
-    }
-}
 ```
 
 ```
@@ -141,6 +136,18 @@ function selectVideo(){
     event.preventDefault()
 }
 ```
+
+```
+function removeActiveClass(locale){
+    if (locale === 'accordion') {
+        subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+    } else if (locale === 'video') {
+        videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
+    }
+}
+```
+
+
 
 ### Subnav
 
@@ -162,37 +169,15 @@ and
     }
 ```
 
-Note issue with CSS. Remove initialization (we are doing this in the js):
-
-```
-.nav-sub li:first-child ul {
-  display: block;
-}
-```
-
-Sticky Nav
+#### Sticky Nav
 
 ```
 nav {
-        ul {
-            position: fixed;
+    position: fixed;
+    width: 100%;
 ```
 
-Note the issues on small screen.
-
-```
-nav {
-        ul {
-        // display: none;
-        transform: translateY(-200px);
-        max-height: 1px;
-        opacity: 0;
-        transition: all .3s;
-        background: $light-gray;
-        @media (min-width: $break-sm){
-            position: fixed;
-            width: 100%;
-```
+Test. 
 
 Followed by cosmetic adjustments:
 
@@ -202,9 +187,7 @@ header {
     margin: 0 auto;
     h1 {
         font-size: 3rem;
-        @media (min-width: $break-sm){
-            padding-top: 50px;
-        }
+        padding-top: 50px;
     }
 ```
 
@@ -230,7 +213,7 @@ In _carousel.scss:
             width: 80px;
             padding: 10px;
             background-color: #fff;
-            border: 1px solid $lt-yellow;
+            border: 1px solid $dk-yellow;
             transition: all 0.2s linear;
             &:hover {
                 transform: scale(1.1);
@@ -320,7 +303,6 @@ Find the appropriate traversal `const titleText = this.firstChild.title`:
 function runCarousel(){
     const imageHref = this.getAttribute('href')
     const titleText = this.firstChild.title
-    console.log(titleText)
     carousel.setAttribute('src', imageHref)
     event.preventDefault()
 }
@@ -363,6 +345,33 @@ function runCarousel(){
 }
 ```
 
+Note the separation of thumbnails and figure in small screen view.
+
+```
+.secondary article {
+    display: flex;
+    flex-direction: column;
+    figure {
+        order: 2;
+    }
+}
+```
+
+Correct wide screen view:
+
+```
+.secondary article {
+    display: flex;
+    flex-direction: column;
+    figure {
+        order: 2;
+        @media(min-width: $break-med){
+            order: 0;
+        }
+    }
+}
+```
+
 
 
 ### The Panels (the third and final section)
@@ -385,21 +394,19 @@ Add padding (note the use of box-sizing):
 .hentry {
     position: relative;
     float: left;
-    box-sizing: border-box;
     width: 50%;
+    box-sizing: border-box;
     padding: 1rem;
 }
 ```
 
 The little date area
 
+The HTML5 [time tag](https://www.w3schools.com/tags/tag_time.asp) and datetime attribute
+
 ```css
 .hentry {
-    position: relative;
-    float: left;
-    box-sizing: border-box;
-    width: 50%;
-    padding: 1rem;
+    ...
     .published {
         position: absolute;
         top: 250px;
@@ -414,7 +421,7 @@ The little date area
         color: #fff;
     }
     .day {
-        font-size: 32px;
+        font-size: 26px;
     }
     h4 {
         margin: 0 0 10px 60px;
@@ -428,51 +435,29 @@ The little date area
 
 Parent container .hentries is used here.
 
-Adding abbr formatting, removing positioning and using flexbox and floats.
+Redo the entire design - mobile first:
 
 ```css
 .hentries {
     display: flex;
-    abbr {
-        text-decoration: none;
-        text-align: center;
-    }
+    justify-content: space-between;
     .hentry {
-        float: left;
-        box-sizing: border-box;
-        width: 50%;
-        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        width: 48%;
+
         .published {
-            float: left;
-            width: 24%;
-            box-sizing: border-box;
-        // position: absolute;
-        // top: 250px;
-        // left: 1rem;
-        display: block;
-        // width: 50px;
-        padding: 5px 10px;
-        background-color: $link;
-        font-size: 10px;
-        text-align: center;
-        text-transform: uppercase;
-        color: #fff;
+            font-size: 0.875rem
+        }
+        h4 {
+            font-size: 20px;
+            margin-top:  1rem;
+            margin-bottom: 0;
+        }
+        p {
+            order: 2;
+        }
     }
-    .day {
-        font-size: 32px;
-    }
-    h4 {
-        // margin: 0 0 10px 60px;
-        font-size: 20px;
-    }
-    p {
-        // margin-left: 60px;
-        margin-top: 0;
-        float: right;
-        width: 70%;
-        box-sizing: border-box;
-    }
-}
 }
 ```
 
