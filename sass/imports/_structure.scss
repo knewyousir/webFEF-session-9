@@ -1,4 +1,4 @@
-
+/* structure scss */
 
 .secondary {
 	background: $lt-yellow;
@@ -39,51 +39,6 @@ footer {
 }
 
 
-.btn-list {
-	padding: 6px;
-	display: flex;
-	li {
-		margin-right: 18px;
-		margin-bottom: 16px;
-	}
-	.active {
-		border-radius: $radius;
-		background: $link;
-		color: #fff;
-		padding: 0.5rem;
-	}
-}
-
-
-.nav-sub {
-	padding: 10px 20px;
-	background-color: $lt-yellow;
-	border: 1px solid $dk-yellow;
-	@media (min-width: $break-med){
-		// width: 40%;
-		// float: right;
-		border-radius: $radius;
-		margin: 0;
-		// float: none;
-		width: auto;
-	}
-	ul {
-		display: none;
-		li {
-			// padding-left: 12px;
-		}
-	}
-	// li:first-child ul {
-	// 	display: block;
-	// }
-	> li > a {
-		font-weight: bold;
-	}
-	ul li {
-		padding-left: 12px;
-	}
-	.active { display: block; }
-}
 
 
 
