@@ -10,14 +10,11 @@ Continue on your final projects.
 petershift:
 
 ```
-Windows users for browser sync you must `\"` the package.json file so
-
 "scripts": {
-   "start": "browser-sync start --browser \"chrome\" --server \"app\" --files \"app\"",
-   "startUp": "browser-sync start --browser \"chrome\" --server \"definition-list\" --files \"definition-list\""
- },
-
-notice also 'google chrome' becomes 'chrome' on windows
+    "start": "browser-sync start --browser \"chrome\" --server \"app\" --files \"app\"",
+    "sassy": "node-sass --watch sass --output \"app\\css\" --source-map true 2>&1 | build-error-notifier",
+    "boom!": "concurrently \"npm run start\" \"npm run sassy\" "
+  },
 ```
 
 ```
