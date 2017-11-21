@@ -10,12 +10,10 @@ Continue on your final projects.
 
 ```
 $ cd <session9>
-$ npm install
+$ npm install --save-dev browser-snyc
 ```
 
-Create a Git repo.
-
-Create and upload a branch to Github.
+Create a Git repo from Master.
 
 `$ npm run start`
 
