@@ -33,7 +33,7 @@ Create and upload a branch to Github.
 
 1) Video Switcher - JavaScript with Active class
 
-```
+```js
 const iFrame = document.querySelector('iframe')
 const videoLinks = document.querySelectorAll('.content-video a')
 const videoLinksArray = [...videoLinks]
@@ -52,7 +52,7 @@ function removeActiveClass(){
 }
 ```
 
-Note that the removeActiveClass funtion seems broken.
+Note that the removeActiveClass function seems broken.
 
 2) JavaScript and css for nav-sub 
 
@@ -90,7 +90,7 @@ Note the `>` [selector](https://www.w3schools.com/cssref/css_selectors.asp). Als
 [DOM Traversal](https://www.w3schools.com/jsref/dom_obj_document.asp)
 nextElementSibling, nextSibling, previousSibling, childNodes, firstChild, etc.
 
-```
+```js
 const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
 const subnavLinksArray = [...subnavLinks]
 subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
@@ -115,7 +115,7 @@ Note the lack of animation.
 
 This appears twice and the video switcher is broken. Let's unify this
 
-```
+```js
 function openAccordion(){
     removeActiveClass('accordion')
     this.nextElementSibling.classList.toggle('active')
@@ -124,7 +124,7 @@ function openAccordion(){
 
 ```
 
-```
+```js
 function selectVideo(){
     removeActiveClass('video')
     const videoToPlay = this.getAttribute('href')
@@ -134,7 +134,7 @@ function selectVideo(){
 }
 ```
 
-```
+```js
 function removeActiveClass(locale){
     if (locale === 'accordion') {
         subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
@@ -150,17 +150,19 @@ function removeActiveClass(locale){
 
 Fix animation with
 
-```
+```js
     ul {
         // display: none;
         max-height: 0;
         overflow: hidden;
         transition: all .3s;
+
+      }
 ```
 
 and
 
-```
+```css
     .active { 
         max-height: 500px;
     }
@@ -168,7 +170,7 @@ and
 
 #### Sticky Nav
 
-```
+```css
 nav {
     position: fixed;
     width: 100%;
@@ -178,7 +180,7 @@ Test.
 
 Followed by cosmetic adjustments:
 
-```
+```css
 header {
     max-width: $max-width;
     margin: 0 auto;
@@ -251,7 +253,7 @@ figure {
 
 Change the # links to point to high res images (first three only in this sample):
 
-```
+```html
 <ul class="image-tn">
   <li>
     <a href="img/bamboo.jpg"><img src="img/bamboo-tn.jpg" alt="" title="Link to original photo on Flickr" /></a>
@@ -278,7 +280,7 @@ $('.image-tn a').on('click tap', function(){
 });
 ```
 
-```
+```js
 const carouselLinks = document.querySelectorAll('.image-tn a')
 const carouselLinksArray = [...carouselLinks]
 const carousel = document.querySelector('figure img')
@@ -296,7 +298,7 @@ Set the text in the carousel.
 
 Find the appropriate traversal `const titleText = this.firstChild.title`:
 
-```
+```js
 function runCarousel(){
     const imageHref = this.getAttribute('href')
     const titleText = this.firstChild.title
@@ -307,13 +309,13 @@ function runCarousel(){
 
 Create a pointer to the figcaption in order to manipulate its content:
 
-```
+```js
 const carouselPara = document.querySelector('figcaption')
 ```
 
 Set the innerHTML `carouselPara.innerHTML = titleText` of the paragraph:
 
-```
+```js
 function runCarousel(){
     const imageHref = this.getAttribute('href')
     const titleText = this.firstChild.title
@@ -326,7 +328,7 @@ function runCarousel(){
 
 Final script:
 
-```
+```js
 const carouselLinks = document.querySelectorAll('.image-tn a')
 const carouselLinksArray = [...carouselLinks]
 const carousel = document.querySelector('figure > img')
@@ -344,7 +346,7 @@ function runCarousel(){
 
 Note the separation of thumbnails and figure in small screen view.
 
-```
+```js
 .secondary article {
     display: flex;
     flex-direction: column;
@@ -356,7 +358,7 @@ Note the separation of thumbnails and figure in small screen view.
 
 Correct wide screen view:
 
-```
+```js
 .secondary article {
     display: flex;
     flex-direction: column;
@@ -387,7 +389,7 @@ In _panels.scss:
 
 Add padding (note the use of box-sizing):
 
-```
+```js
 .hentry {
     position: relative;
     float: left;
