@@ -43,7 +43,7 @@ function removeActiveClass(){
 }
 ```
 
-2) JavaScript and css for nav-sub 
+2) JavaScript and css for nav-sub (in a new include)
 
 ```css
 .nav-sub {
