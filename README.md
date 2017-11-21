@@ -43,34 +43,26 @@ function removeActiveClass(){
 }
 ```
 
-2) JavaScript and css for nav-sub (in a new include)
+2) JavaScript and css for nav-sub 
 
 ```css
 .nav-sub {
-    padding: 10px 20px;
-    background-color: $lt-yellow;
-    border: 1px solid $dk-yellow;
-    @media (min-width: $break-med){
-        width: 40%;
-        float: right;
-        border-radius: $radius;
-        margin: 0;
-        float: none;
-        width: auto;
-    }
-    ul {
-        display:none;
-    }
-    li:first-child ul {
-        display:block;
-    }
-    > li > a { 
-        font-weight:bold; 
-    }
-    ul li {
-        padding-left:12px;
-    }
-    .active {display: block !important}
+  padding: 10px 20px;
+  background-color: $lt-yellow;
+  border: 1px solid $dk-yellow;
+  border-radius: $radius;
+  ul {
+    display:none;
+  }
+  li:first-child ul {
+    display:block;
+  }
+  > li > a { 
+    font-weight:bold; 
+  }
+  ul li {
+    padding-left:12px;
+  }
 }
 ```
 
@@ -81,18 +73,87 @@ nextElementSibling, nextSibling, previousSibling, childNodes, firstChild, etc.
 
 ```js
 const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
-const subnavLinksArray = [...subnavLinks]
-subnavLinksArray.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-subnavLinksArray[0].nextElementSibling.classList.add('active')
+
+subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
 
 function openAccordion(){
-    removeActiveClass()
     this.nextElementSibling.classList.toggle('active')
     event.preventDefault()
 }
+```
+
+Add to nav-sub css:
+
+```css
+.active {
+  display: block;
+}
+```
+
+```
+const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
+
+subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
+
+function openAccordion(){
+  removeActiveClass()
+  this.nextElementSibling.classList.toggle('active')
+  event.preventDefault()
+}
 
 function removeActiveClass(){
-    subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+    subnavLinks.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+}
+```
+
+Remove the offending css:
+
+```
+  li:first-child ul {
+    display:block;
+  }
+```
+
+Add class via js:
+
+```js
+const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
+subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
+subnavLinks[0].nextElementSibling.classList.add('active')
+
+function openAccordion(){
+  removeActiveClass()
+  this.nextElementSibling.classList.toggle('active')
+  event.preventDefault()
+}
+
+function removeActiveClass(){
+    subnavLinks.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+}
+```
+
+Add overflow and max height?
+
+```
+.nav-sub {
+  padding: 10px 20px;
+  background-color: $lt-yellow;
+  border: 1px solid $dk-yellow;
+  border-radius: $radius;
+  max-height: 150px;
+  overflow: scroll;
+  ul {
+    display:none;
+  }
+  > li > a { 
+    font-weight:bold; 
+  }
+  ul li {
+    padding-left:12px;
+  }
+  .active {
+    display: block;
+  }
 }
 ```
 
@@ -109,7 +170,6 @@ function openAccordion(){
     this.nextElementSibling.classList.toggle('active')
     event.preventDefault()
 }
-
 ```
 
 ```js
@@ -125,7 +185,7 @@ function selectVideo(){
 ```js
 function removeActiveClass(locale){
     if (locale === 'accordion') {
-        subnavLinksArray.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+        subnavLinks.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
     } else if (locale === 'video') {
         videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
     }
@@ -136,37 +196,41 @@ function removeActiveClass(locale){
 
 ### Subnav
 
-Fix animation with
+Fix animation in nav-sub with
 
 ```js
-    ul {
-        // display: none;
-        max-height: 0;
-        overflow: hidden;
-        transition: all .3s;
+ul {
+    // display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: all .3s;
 
-      }
+  }
 ```
 
 and
 
 ```css
-    .active { 
-        max-height: 500px;
-    }
+.active { 
+    max-height: 500px;
+}
 ```
 
 #### Sticky Nav
+
+in navigation:
 
 ```css
 nav {
     position: fixed;
     width: 100%;
+  ...
+  }
 ```
 
 Test. 
 
-Followed by cosmetic adjustments:
+Followed by cosmetic adjustments to header (add padding):
 
 ```css
 header {
@@ -194,10 +258,8 @@ In _carousel.scss:
         flex-wrap: wrap;
         align-content: space-around;
         li {
-            margin: 6px;
-        }
-        li img {
-            width: 80px;
+            flex-basis: 22%;
+            margin: 2px;
             padding: 10px;
             background-color: #fff;
             border: 1px solid $dk-yellow;
@@ -211,17 +273,7 @@ In _carousel.scss:
 }
 ```
 
-Note transition:
-
-```css
-li img {
-    ...
-    transition: all 0.2s linear;
-    &:hover {
-        transform: scale(1.1);
-        box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
-    }
-```
+Note transition
 
 Content Slider - examine image
 
@@ -256,24 +308,11 @@ Change the # links to point to high res images (first three only in this sample)
 
 Change the title text as well.
 
-Old school JavaScript:
-
-```js
-$('.image-tn a').on('click tap', function(){
-    var imgsrc = $(this).attr('href');
-    var titleText = $(this).find('img').attr('title');
-    $('figure > img').attr('src', imgsrc);
-    $('figcaption').html(titleText);
-    return false;
-});
-```
 
 ```js
 const carouselLinks = document.querySelectorAll('.image-tn a')
-const carouselLinksArray = [...carouselLinks]
 const carousel = document.querySelector('figure img')
-
-carouselLinksArray.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
+carouselLinks.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 
 function runCarousel(){
     const imageHref = this.getAttribute('href')
@@ -318,10 +357,9 @@ Final script:
 
 ```js
 const carouselLinks = document.querySelectorAll('.image-tn a')
-const carouselLinksArray = [...carouselLinks]
-const carousel = document.querySelector('figure > img')
+const carousel = document.querySelector('figure img')
 const carouselPara = document.querySelector('figcaption')
-carouselLinksArray.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
+carouselLinks.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 
 function runCarousel(){
     const imageHref = this.getAttribute('href')
