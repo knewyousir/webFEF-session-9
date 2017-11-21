@@ -20,9 +20,9 @@ Create and upload a branch to Github.
 `$ npm run start`
 
 
-### Review
+### Scripting
 
-1) Video Switcher - JavaScript with Active class
+1) REVIEW: Video Switcher - JavaScript with Active class
 
 ```js
 const iFrame = document.querySelector('iframe')
@@ -42,8 +42,6 @@ function removeActiveClass(){
     videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
 }
 ```
-
-Note that the removeActiveClass function seems broken.
 
 2) JavaScript and css for nav-sub 
 
@@ -100,7 +98,6 @@ function removeActiveClass(){
 
 Note the lack of animation.
 
-===== END REVIEW =====
 
 ### removeActiveClass
 
