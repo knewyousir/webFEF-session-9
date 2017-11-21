@@ -19,7 +19,6 @@ function selectVideo(){
 	const videoToPlay = this.getAttribute('href')
 	iFrame.setAttribute('src', videoToPlay)
 	this.classList.add('active')
-	// console.log(videoToPlay)
 	event.preventDefault()
 }
 

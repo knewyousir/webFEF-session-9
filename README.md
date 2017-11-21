@@ -7,15 +7,6 @@ Continue on your final projects.
 
 ## Tooling
 
-petershift:
-
-```
-"scripts": {
-    "start": "browser-sync start --browser \"chrome\" --server \"app\" --files \"app\"",
-    "sassy": "node-sass --watch sass --output \"app\\css\" --source-map true 2>&1 | build-error-notifier",
-    "boom!": "concurrently \"npm run start\" \"npm run sassy\" "
-  },
-```
 
 ```
 $ cd <session9>
@@ -26,7 +17,7 @@ Create a Git repo.
 
 Create and upload a branch to Github.
 
-`$ npm run boom!`
+`$ npm run start`
 
 
 ### Review
