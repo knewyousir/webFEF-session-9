@@ -100,24 +100,6 @@ header {
     line-height: 1.1;
     color: #666; }
 
-.nav-sub {
-  padding: 10px 20px;
-  background-color: #f8f7f3;
-  border: 1px solid #dbd1b5; }
-  @media (min-width: 768px) {
-    .nav-sub {
-      border-radius: 4px;
-      margin: 0;
-      width: auto; } }
-  .nav-sub ul {
-    display: none; }
-  .nav-sub > li > a {
-    font-weight: bold; }
-  .nav-sub ul li {
-    padding-left: 12px; }
-  .nav-sub .active {
-    display: block; }
-
 /* video */
 .btn-list {
   padding: 6px;
