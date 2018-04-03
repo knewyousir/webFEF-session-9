@@ -1,4 +1,4 @@
-# Foundations Session 9
+# IX - DOM Scripting
 
 ## Homework
 
