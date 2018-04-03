@@ -114,6 +114,12 @@ cd <session9>
 npm install
 ```
 
+Experiment with this line for more reliable sass processing:
+
+```sh
+"sassy": "node-sass --watch scss/**.scss --output \"app/css\" --expanded --source-map true",
+```
+
 `$ npm run boom!`
 
 ### Scripting
@@ -163,6 +169,8 @@ Before we start check out [this article](https://css-tricks.com/quick-reminder-t
   }
 }
 ```
+
+`$lt-yellow: #f8f7f3;`
 
 Note the `>` [selector](https://www.w3schools.com/cssref/css_selectors.asp). Also see [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Simple_selectors)
 
@@ -217,7 +225,7 @@ Add class via js:
 ```js
 const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
 subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-subnavLinks[0].nextElementSibling.classList.add('active')
+subnavLinks[0].nextElementSibling.classList.add('active') // NEW
 
 function openAccordion(){
   removeActiveClass()
@@ -289,19 +297,16 @@ function removeActiveClass(locale){
 }
 ```
 
-
-
 ### Subnav
 
-Fix animation in nav-sub with
+Fix animation in navsub with
 
-```js
+```css
 ul {
     // display: none;
     max-height: 0;
     overflow: hidden;
     transition: all .3s;
-
   }
 ```
 
@@ -313,7 +318,7 @@ and
 }
 ```
 
-#### Sticky Nav
+<!-- #### Sticky Nav
 
 in navigation:
 
@@ -325,7 +330,7 @@ nav {
   }
 ```
 
-Test. 
+Test.
 
 Followed by cosmetic adjustments to header (add padding):
 
@@ -339,10 +344,9 @@ header {
     }
 ```
 
-Design note: its common to include a box shadow on elements that float atop.
+Design note: its common to include a box shadow on elements that float atop. -->
 
-
-### Image Carousel 
+### Image Carousel
 
 Do a DOM review of this section of the page.
 
@@ -370,20 +374,20 @@ In _carousel.scss:
 }
 ```
 
-Note transition
+Note the transition.
 
 Content Slider - examine image
 
 ```css
 figure {
     position: relative;
-    figcaption {
+    .figcaption {
         padding: 6px;
         background: rgba(255,255,255,0.7);
         position: absolute;
         bottom: 0;
     }
-}   
+}
 ```
 
 ### Image Carousel - JavaScript
@@ -469,7 +473,7 @@ function runCarousel(){
 
 Note the separation of thumbnails and figure in small screen view.
 
-```js
+```css
 .secondary article {
     display: flex;
     flex-direction: column;
@@ -481,7 +485,7 @@ Note the separation of thumbnails and figure in small screen view.
 
 Correct wide screen view:
 
-```js
+```css
 .secondary article {
     display: flex;
     flex-direction: column;
@@ -493,8 +497,6 @@ Correct wide screen view:
     }
 }
 ```
-
-
 
 ### The Panels (the third and final section)
 
@@ -512,7 +514,7 @@ In _panels.scss:
 
 Add padding (note the use of box-sizing):
 
-```js
+```css
 .hentry {
     position: relative;
     float: left;
@@ -585,7 +587,7 @@ Redo the entire design - mobile first:
 
 Final _panels.scss:
 
-```
+```css
 .hentries {
     display: flex;
     abbr {
@@ -644,8 +646,6 @@ a[rel="alternate"] {
 }
 ```
 
-
-
 ## Notes
 
 ### Links Smooth Scrolling
@@ -654,7 +654,7 @@ a[rel="alternate"] {
 
 `<div class="secondary" id="two">`
 
-```
+```css
 html {
   scroll-behavior: smooth;
 }
@@ -662,7 +662,7 @@ html {
 
 https://www.sitepoint.com/smooth-scrolling-vanilla-javascript/
 
-```
+```js
 initSmoothScrolling();
 
 function initSmoothScrolling() {
@@ -796,12 +796,9 @@ function jump(target, options) {
 
 }
 ```
-
-
-
 ### Follow Along
 
-```
+```js
 const triggers = document.querySelectorAll('a')
 const highlight = document.createElement('span')
 highlight.classList.add('highlight')
@@ -820,16 +817,3 @@ function highlightlink(){
 }
 triggers.forEach( (a) => a.addEventListener('mouseenter', highlightlink))
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
