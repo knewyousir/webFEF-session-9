@@ -1,0 +1,22 @@
+@media (min-width: $break-sm) {
+	// section {
+	// 	max-width: 940px;
+	// 	margin: 0 auto;
+	// 	display: flex;
+	// }
+	// article {
+	// 	flex: 2;
+	// 	padding-right: 2rem;
+	// }
+	// aside {
+	// 	flex: 1;
+	// }
+
+	section {
+		max-width: $max-width;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 8fr 4fr;
+		grid-column-gap: 2rem;
+	}
+}

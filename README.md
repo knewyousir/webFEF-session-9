@@ -1,26 +1,35 @@
 # Foundations Session 9
 
 ## Homework
+
 Continue on your final projects.
 
-![image](siteDesign.png)
+Top of the page
+
+![image](/img/wide.png)
+
+Mobile view
+
+![image](/img/mobile.png)
+
+Full page
+
+![image](/img/siteDesign.png)
 
 ## Tooling
 
-
-```
-$ cd <session9>
-$ npm install --save-dev browser-snyc
+```sh
+cd <session9>
+npm install
 ```
 
 Create a Git repo from Master.
 
-`$ npm run start`
-
+`$ npm run boom!`
 
 ### Scripting
 
-1) REVIEW: Video Switcher - JavaScript with Active class
+#### REVIEW: Video Switcher - JavaScript with Active class
 
 ```js
 const iFrame = document.querySelector('iframe')
@@ -41,7 +50,9 @@ function removeActiveClass(){
 }
 ```
 
-2) JavaScript and css for nav-sub 
+#### JavaScript and css for nav-sub
+
+Before we start check out [this article](https://css-tricks.com/quick-reminder-that-details-summary-is-the-easiest-way-ever-to-make-an-accordion/) on the simplest way to create an accordion.
 
 ```css
 .nav-sub {
@@ -88,7 +99,7 @@ Add to nav-sub css:
 }
 ```
 
-```
+```js
 const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
 
 subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
@@ -106,7 +117,7 @@ function removeActiveClass(){
 
 Remove the offending css:
 
-```
+```css
   li:first-child ul {
     display:block;
   }
@@ -132,7 +143,7 @@ function removeActiveClass(){
 
 Add overflow and max height?
 
-```
+```css
 .nav-sub {
   padding: 10px 20px;
   background-color: $lt-yellow;
@@ -156,7 +167,6 @@ Add overflow and max height?
 ```
 
 Note the lack of animation.
-
 
 ### removeActiveClass
 

@@ -1,0 +1,82 @@
+header {
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+nav ul {
+	display: flex;
+	justify-content: space-around;
+	background: #ddd;
+}
+
+img,
+iframe {
+	width: 100%;
+}
+
+section {
+	display: flex;
+	max-width: 980px;
+	margin: 0 auto;
+	border: 3px solid red;
+}
+
+article {
+	flex: 2;
+	padding-right: 2rem;
+	background: #eee;
+}
+
+aside {
+	flex: 1;
+	background: #ddd;
+}
+
+footer .siteinfo {
+	display: flex;
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+.siteinfo > * {
+	flex: 1;
+}
+
+@media (max-width: 420px) {
+	nav ul {
+		flex-direction: column;
+	}
+	section {
+		display: block;
+	}
+	article {
+		padding-right: 0;
+	}
+	footer .siteinfo {
+		display: block;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

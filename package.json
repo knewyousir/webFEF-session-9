@@ -1,27 +1,27 @@
 {
-  "name": "session8",
+  "name": "session7",
   "version": "1.0.0",
   "description": "## Homework",
   "main": "index.js",
   "scripts": {
-    "sassy": "node-sass --watch sass --output app/css --source-map true",
-    "start": "browser-sync start --server app --files app ",
+    "sassy": "node-sass --watch \"scss/styles.scss\" --recursive --output \"app/css\" --expanded --source-map true",
+    "start": "browser-sync start --server \"app\" --files \"app\"",
     "boom!": "concurrently \"npm run start\" \"npm run sassy\" "
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/front-end-foundations/session8.git"
+    "url": "git+https://github.com/front-end-foundations/session7.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/front-end-foundations/session8/issues"
+    "url": "https://github.com/front-end-foundations/session7/issues"
   },
-  "homepage": "https://github.com/front-end-foundations/session8#readme",
+  "homepage": "https://github.com/front-end-foundations/session7#readme",
   "devDependencies": {
-    "browser-sync": "^2.18.8",
-    "concurrently": "^3.4.0",
-    "node-sass": "^4.5.2"
+    "browser-sync": "^2.23.6",
+    "concurrently": "^3.5.1",
+    "node-sass": "^4.7.2"
   }
 }
