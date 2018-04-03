@@ -16,14 +16,103 @@ Full page
 
 ![image](/img/siteDesign.png)
 
+## GIT and GITHUB
+
+Since we've just created a nice reusable setup we should save it.
+
+Git is a version control system originally invented for use developing Linux by Linus Torvalds. It is the standard version tool and integrates with Github to permit collaboration.
+
+There is a handy and very simple tutorial for Git on [the Git Website](https://try.github.io/levels/1/challenges/1) which is highly recommended for newbies.
+
+1. make sure terminal is in the `basic-dom` directory using `cd` (drag-and-drop, copy paste)
+1. initialize the repo:
+
+```sh
+git init
+```
+
+Configuring Git - only if you haven't done this before, and you only need to do this once:
+
+```sh
+git config
+git config --global user.name " ***** "
+git config --global user.email " ***** "
+git config --list
+```
+
+* Add (watch) all your files:
+
+```sh
+git add .
+```
+
+Once you have made changes you need to commit them
+
+```sh
+git commit -m 'initial commit'
+```
+
+Note: `git commit`  without the `-m` flag goes into VI - a text popular UNIX text editor. To avoid this always using the -m flag when committing. (If you end up in VI, hit ESC and type “:q” to exit.)
+
+Git Status
+
+```sh
+git status
+On branch master
+nothing to commit, working directory clean
+```
+
+* Create a new branch:
+
+```sh
+git branch <new branchname>
+git checkout <new branchname>
+git branch
+```
+
+To merge branches
+
+* make sure the branch you want to merge is clear (`$ git status`)
+* checkout the branch you want to merge into
+* run status on that branch too (make sure it is clear)
+
+```sh
+git checkout master
+git status
+git merge <new branchname>
+```
+
+Delete branches:
+
+```sh
+git branch -d <branchname>
+```
+
+Pushing Files to Remote Repos - Github
+
+Note: always create a .gitignore file to prevent local working / utility files from being pushed.
+
+```sh
+.sass_cache
+.DS_store
+node_modules
+```
+
+* Log into Github, create and new repo and follow the instructions e.g.:
+
+```sh
+git remote add origin https://github.com/<nameofgithubrepo>
+git push -u origin master
+```
+
+Finally - when downloading a github repo use the `clone` method to move it to your local disk while retaining the git history, branches, and etc.
+
 ## Tooling
 
 ```sh
 cd <session9>
 npm install
 ```
-
-Create a Git repo from Master.
 
 `$ npm run boom!`
 
