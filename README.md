@@ -10,7 +10,7 @@
     - [1.3.2. REVIEW: JavaScript and CSS for nav-sub.](#132-review-javascript-and-css-for-nav-sub)
     - [1.3.3. REVIEW: removeActiveClass](#133-review-removeactiveclass)
   - [1.4. Image Carousel](#14-image-carousel)
-    - [1.4.1. Image Carousel - JavaScript](#141-image-carousel---javascript)
+    - [1.4.1. Image Carousel JavaScript](#141-image-carousel-javascript)
   - [1.5. The Panels (the third and final section)](#15-the-panels-the-third-and-final-section)
   - [1.6. AJAX](#16-ajax)
   - [1.7. GIT and GITHUB](#17-git-and-github)
@@ -44,11 +44,11 @@ cd <session9>
 npm i
 ```
 
-Experiment with this line for more reliable sass processing:
+<!-- Experiment with this line for more reliable sass processing:
 
 ```sh
 "sassy": "node-sass --watch scss/**.scss --output 'app/css' --expanded --source-map true",
-```
+``` -->
 
 `$ npm run boom!`
 
@@ -74,7 +74,13 @@ Or, to use Live SASS Compiler in VSCode, make sure you have the extension instal
 
 ### 1.3.1. REVIEW: Video Switcher 
 
-JavaScript with Active class
+For testing purposes add this to the top of the scripts file:
+
+```js
+var log = console.log
+```
+
+JavaScript with Active class switching:
 
 ```js
 // Video switcher
@@ -100,14 +106,16 @@ var videoSwitcher = function () {
 
 Check out [this article](https://css-tricks.com/quick-reminder-that-details-summary-is-the-easiest-way-ever-to-make-an-accordion/) on the simplest way to create an accordion.
 
+Here is the CSS for the accordion:
+
 ```css
 .nav-sub {
 	padding: 10px 20px;
 	background-color: $lt-yellow;
 	border: 1px solid $dk-yellow;
 	border-radius: $radius;
-	max-height: 180px; // NEW
-	overflow: scroll; // NEW
+	max-height: 180px; 
+	overflow: scroll; 
 	ul {
 		// display:none;
 		max-height: 0;
@@ -128,8 +136,10 @@ Check out [this article](https://css-tricks.com/quick-reminder-that-details-summ
 
 ```
 
-[DOM Traversal](https://www.w3schools.com/jsref/dom_obj_document.asp)
+To script the accordion we had to use [DOM Traversal](https://www.w3schools.com/jsref/dom_obj_document.asp): 
 nextElementSibling, nextSibling, previousSibling, childNodes, firstChild, etc.
+
+This was because we were litening to clicks on the main (bold) list items, but setting the active class on a sibling (the nested `<ul>`).
 
 ```js
 // Accordion
@@ -149,7 +159,7 @@ var accordion = function () {
 
 ### 1.3.3. REVIEW: removeActiveClass
 
-This appeared twice and the video switcher was broken. We consolidated it into:
+Since adding and removing the active class was becoming an activity that we needed for multiple scripts we consolidated it into two functions:
 
 ```js
 var removeActiveClass = function (elements) {
@@ -163,11 +173,13 @@ var addActiveClass = function (element) {
 }
 ```
 
-## 1.4. Image Carousel
+These are used in the accordion and video switcher.
+
+## 1.4. Image Carousel 
 
 Do a DOM review of this section of the page.
 
-In `_carousel.scss`:
+Here's what we have in `_carousel.scss`:
 
 ```css
 .secondary aside {
@@ -201,7 +213,7 @@ figure {
 }
 ```
 
-### 1.4.1. Image Carousel - JavaScript
+### 1.4.1. Image Carousel JavaScript
 
 Change the # links to point to high res images (first three only in this sample):
 
