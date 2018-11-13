@@ -1,6 +1,25 @@
-# IX - DOM Scripting
+# 1. IX - DOM Scripting
 
-## Homework
+<!-- TOC -->
+
+- [1. IX - DOM Scripting](#1-ix---dom-scripting)
+  - [1.1. Homework](#11-homework)
+  - [1.2. Tooling](#12-tooling)
+  - [1.3. JavaScipt Review](#13-javascipt-review)
+    - [1.3.1. REVIEW: Video Switcher](#131-review-video-switcher)
+    - [1.3.2. REVIEW: JavaScript and CSS for nav-sub.](#132-review-javascript-and-css-for-nav-sub)
+    - [1.3.3. REVIEW: removeActiveClass](#133-review-removeactiveclass)
+  - [1.4. Image Carousel](#14-image-carousel)
+    - [1.4.1. Image Carousel - JavaScript](#141-image-carousel---javascript)
+  - [1.4.2. The Panels (the third and final section)](#142-the-panels-the-third-and-final-section)
+  - [1.5. GIT and GITHUB](#15-git-and-github)
+  - [1.6. Notes](#16-notes)
+    - [1.6.1. Links Smooth Scrolling](#161-links-smooth-scrolling)
+    - [1.6.2. Follow Along](#162-follow-along)
+
+<!-- /TOC -->
+
+## 1.1. Homework
 
 Continue on your final projects.
 
@@ -16,381 +35,171 @@ Full page
 
 ![image](/img/siteDesign.png)
 
-## GIT and GITHUB
-
-Since we've just created a nice reusable setup we should save it.
-
-Git is a version control system originally invented for use developing Linux by Linus Torvalds. It is the standard version tool and integrates with Github to permit collaboration.
-
-There is a handy and very simple tutorial for Git on [the Git Website](https://try.github.io/levels/1/challenges/1) which is highly recommended for newbies.
-
-1. make sure terminal is in the `basic-dom` directory using `cd` (drag-and-drop, copy paste)
-1. initialize the repo:
-
-```sh
-git init
-```
-
-Configuring Git - only if you haven't done this before, and you only need to do this once:
-
-```sh
-git config
-git config --global user.name " ***** "
-git config --global user.email " ***** "
-git config --list
-```
-
-* Add (watch) all your files:
-
-```sh
-git add .
-```
-
-Once you have made changes you need to commit them
-
-```sh
-git commit -m 'initial commit'
-```
-
-Note: `git commit`  without the `-m` flag goes into VI - a text popular UNIX text editor. To avoid this always using the -m flag when committing. (If you end up in VI, hit ESC and type “:q” to exit.)
-
-Git Status
-
-```sh
-git status
-On branch master
-nothing to commit, working directory clean
-```
-
-* Create a new branch:
-
-```sh
-git branch <new branchname>
-git checkout <new branchname>
-git branch
-```
-
-To merge branches
-
-* make sure the branch you want to merge is clear (`$ git status`)
-* checkout the branch you want to merge into
-* run status on that branch too (make sure it is clear)
-
-```sh
-git checkout master
-git status
-git merge <new branchname>
-```
-
-Delete branches:
-
-```sh
-git branch -d <branchname>
-```
-
-Pushing Files to Remote Repos - Github
-
-Note: always create a .gitignore file to prevent local working / utility files from being pushed.
-
-```sh
-.sass_cache
-.DS_store
-node_modules
-```
-
-* Log into Github, create and new repo and follow the instructions e.g.:
-
-```sh
-git remote add origin https://github.com/<nameofgithubrepo>
-git push -u origin master
-```
-
-Finally - when downloading a github repo use the `clone` method to move it to your local disk while retaining the git history, branches, and etc.
-
-## Tooling
+## 1.2. Tooling
 
 ```sh
 cd <session9>
-npm install
+npm i
 ```
 
 Experiment with this line for more reliable sass processing:
 
 ```sh
-"sassy": "node-sass --watch scss/**.scss --output \"app/css\" --expanded --source-map true",
+"sassy": "node-sass --watch scss/**.scss --output 'app/css' --expanded --source-map true",
 ```
 
 `$ npm run boom!`
 
-### Scripting
-
-#### REVIEW: Video Switcher - JavaScript with Active class
+Or, to use Live SASS Compiler in VSCode, make sure you have the extension installed and configure your project settings json with:
 
 ```js
-const iFrame = document.querySelector('iframe')
-const videoLinks = document.querySelectorAll('.content-video a')
-const videoLinksArray = [...videoLinks]
-videoLinksArray.forEach( videoLink => videoLink.addEventListener('click', selectVideo ))
-
-function selectVideo(){
-    removeActiveClass()
-    this.classList.add('active')
-    const videoToPlay = this.getAttribute('href')
-    iFrame.setAttribute('src', videoToPlay)
-    event.preventDefault()
-}
-
-function removeActiveClass(){
-    videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
+{
+  "liveSassCompile.settings.formats": [
+      {
+          "savePath": "/app/css",
+          "format": "expanded"
+      }
+  ],
+  "liveSassCompile.settings.excludeList": [
+      "**/node_modules/**",
+      ".vscode/**",
+      "**/other/**"
+  ]
 }
 ```
 
-#### JavaScript and css for nav-sub
+## 1.3. JavaScipt Review
 
-Before we start check out [this article](https://css-tricks.com/quick-reminder-that-details-summary-is-the-easiest-way-ever-to-make-an-accordion/) on the simplest way to create an accordion.
+### 1.3.1. REVIEW: Video Switcher 
+
+JavaScript with Active class
+
+```js
+// Video switcher
+var videoSwitcher = function () {
+	const videoLinks = Array.from(document.querySelectorAll('.content-video a'));
+	const iFrame = document.querySelector('iframe')
+	
+	videoLinks.forEach((videoLink) => {
+		videoLink.addEventListener('click', selectVideo)
+	});
+		
+	function selectVideo() {
+		removeActiveClass('.content-video a');
+		addActiveClass(event.target)
+		const videoToPlay = event.target.getAttribute('href');
+		iFrame.setAttribute('src', videoToPlay);
+		event.preventDefault();
+	}
+}
+```
+
+### 1.3.2. REVIEW: JavaScript and CSS for nav-sub.
+
+Check out [this article](https://css-tricks.com/quick-reminder-that-details-summary-is-the-easiest-way-ever-to-make-an-accordion/) on the simplest way to create an accordion.
 
 ```css
 .nav-sub {
-  padding: 10px 20px;
-  background-color: $lt-yellow;
-  border: 1px solid $dk-yellow;
-  border-radius: $radius;
-  ul {
-    display:none;
-  }
-  li:first-child ul {
-    display:block;
-  }
-  > li > a { 
-    font-weight:bold; 
-  }
-  ul li {
-    padding-left:12px;
-  }
+	padding: 10px 20px;
+	background-color: $lt-yellow;
+	border: 1px solid $dk-yellow;
+	border-radius: $radius;
+	max-height: 180px; // NEW
+	overflow: scroll; // NEW
+	ul {
+		// display:none;
+		max-height: 0;
+		overflow: hidden;
+		transition: all .3s;
+		&.active {
+			// display: block;
+			max-height: 500px;
+		}
+	}
+	> li > a { 
+		font-weight:bold; 
+	}
+	ul li {
+		padding-left:12px;
+	}
 }
+
 ```
-
-`$lt-yellow: #f8f7f3;`
-
-Note the `>` [selector](https://www.w3schools.com/cssref/css_selectors.asp). Also see [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Simple_selectors)
 
 [DOM Traversal](https://www.w3schools.com/jsref/dom_obj_document.asp)
 nextElementSibling, nextSibling, previousSibling, childNodes, firstChild, etc.
 
 ```js
-const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
-
-subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-
-function openAccordion(){
-    this.nextElementSibling.classList.toggle('active')
-    event.preventDefault()
+// Accordion
+var accordion = function () {
+	const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
+	subnavLinks[0].nextElementSibling.classList.add('active')
+	
+	subnavLinks.forEach(subnavLink => subnavLink.addEventListener('click', openAccordion))
+	
+	function openAccordion() {
+		removeActiveClass('.nav-sub > li > ul');
+		addActiveClass(event.target.nextElementSibling)
+		event.preventDefault()
+	}
 }
 ```
 
-Add to nav-sub css:
+### 1.3.3. REVIEW: removeActiveClass
 
-```css
-.active {
-  display: block;
-}
-```
+This appeared twice and the video switcher was broken. We consolidated it into:
 
 ```js
-const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
-
-subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-
-function openAccordion(){
-  removeActiveClass()
-  this.nextElementSibling.classList.toggle('active')
-  event.preventDefault()
+var removeActiveClass = function (elements) {
+	document.querySelectorAll(elements).forEach( (elem) => {
+		elem.classList.remove('active')
+	})
 }
 
-function removeActiveClass(){
-    subnavLinks.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
+var addActiveClass = function (element) {
+	element.classList.add('active')
 }
 ```
 
-Remove the offending css:
-
-```css
-  li:first-child ul {
-    display:block;
-  }
-```
-
-Add class via js:
-
-```js
-const subnavLinks = document.querySelectorAll('.nav-sub > li > a')
-subnavLinks.forEach( subnavLink => subnavLink.addEventListener('click', openAccordion))
-subnavLinks[0].nextElementSibling.classList.add('active') // NEW
-
-function openAccordion(){
-  removeActiveClass()
-  this.nextElementSibling.classList.toggle('active')
-  event.preventDefault()
-}
-
-function removeActiveClass(){
-    subnavLinks.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
-}
-```
-
-Add overflow and max height?
-
-```css
-.nav-sub {
-  padding: 10px 20px;
-  background-color: $lt-yellow;
-  border: 1px solid $dk-yellow;
-  border-radius: $radius;
-  max-height: 150px;
-  overflow: scroll;
-  ul {
-    display:none;
-  }
-  > li > a { 
-    font-weight:bold; 
-  }
-  ul li {
-    padding-left:12px;
-  }
-  .active {
-    display: block;
-  }
-}
-```
-
-Note the lack of animation.
-
-### removeActiveClass
-
-This appears twice and the video switcher is broken. Let's unify this
-
-```js
-function openAccordion(){
-    removeActiveClass('accordion')
-    this.nextElementSibling.classList.toggle('active')
-    event.preventDefault()
-}
-```
-
-```js
-function selectVideo(){
-    removeActiveClass('video')
-    const videoToPlay = this.getAttribute('href')
-    iFrame.setAttribute('src', videoToPlay)
-    this.classList.add('active')
-    event.preventDefault()
-}
-```
-
-```js
-function removeActiveClass(locale){
-    if (locale === 'accordion') {
-        subnavLinks.forEach( subnavLink => subnavLink.nextElementSibling.classList.remove('active'))
-    } else if (locale === 'video') {
-        videoLinksArray.forEach( videoLink => videoLink.classList.remove('active'))
-    }
-}
-```
-
-### Subnav
-
-Fix animation in navsub with
-
-```css
-ul {
-    // display: none;
-    max-height: 0;
-    overflow: hidden;
-    transition: all .3s;
-  }
-```
-
-and
-
-```css
-.active { 
-    max-height: 500px;
-}
-```
-
-<!-- #### Sticky Nav
-
-in navigation:
-
-```css
-nav {
-    position: fixed;
-    width: 100%;
-  ...
-  }
-```
-
-Test.
-
-Followed by cosmetic adjustments to header (add padding):
-
-```css
-header {
-    max-width: $max-width;
-    margin: 0 auto;
-    h1 {
-        font-size: 3rem;
-        padding-top: 50px;
-    }
-```
-
-Design note: its common to include a box shadow on elements that float atop. -->
-
-### Image Carousel
+## 1.4. Image Carousel
 
 Do a DOM review of this section of the page.
 
-In _carousel.scss:
+In `_carousel.scss`:
 
 ```css
 .secondary aside {
-    ul {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: space-around;
-        li {
-            flex-basis: 22%;
-            margin: 2px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid $dk-yellow;
-            transition: all 0.2s linear;
-            &:hover {
-                transform: scale(1.1);
-                box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
-            }
-        }
-    }
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: space-around;
+		li {
+			flex-basis: 22%;
+			margin: 2px;
+			padding: 10px;
+			background-color: #fff;
+			border: 1px solid $dk-yellow;
+			transition: all 0.2s linear;
+			&:hover {
+				transform: scale(1.1);
+				box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+			}
+		}
+	}
 }
-```
 
-Note the transition.
-
-Content Slider - examine image
-
-```css
 figure {
-    position: relative;
-    .figcaption {
-        padding: 6px;
-        background: rgba(255,255,255,0.7);
-        position: absolute;
-        bottom: 0;
-    }
+	position: relative;
+	figcaption {
+		padding: 6px;
+		background: rgba(255, 255, 255, 0.7);
+		position: absolute;
+		bottom: 0;
+	}
 }
 ```
 
-### Image Carousel - JavaScript
+### 1.4.1. Image Carousel - JavaScript
 
 Change the # links to point to high res images (first three only in this sample):
 
@@ -427,9 +236,10 @@ Set the text in the carousel.
 Find the appropriate traversal `const titleText = this.firstChild.title`:
 
 ```js
-function runCarousel(){
+function runCarousel() {
+		console.log(this.getAttribute('href'))
+		console.log(event.target.parentElement.getAttribute('href'))
     const imageHref = this.getAttribute('href')
-    const titleText = this.firstChild.title
     carousel.setAttribute('src', imageHref)
     event.preventDefault()
 }
@@ -454,7 +264,16 @@ function runCarousel(){
 }
 ```
 
-Final script:
+<!-- Let's initialize the page to display the first image in our carousel. -->
+
+<!-- // var initCarousel = function () {
+// 	const imageHref = document.querySelector('.image-tn a').getAttribute('href')
+// 	const titleText = document.querySelector('.image-tn a').firstChild.title
+// 	carouselPara.innerHTML = titleText
+// 	carousel.setAttribute('src', imageHref)
+// } -->
+
+Let's use function expressions for this as we have done elsewhere.
 
 ```js
 const carouselLinks = document.querySelectorAll('.image-tn a')
@@ -462,13 +281,35 @@ const carousel = document.querySelector('figure img')
 const carouselPara = document.querySelector('figcaption')
 carouselLinks.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 
-function runCarousel(){
+var runCarousel = function(){
     const imageHref = this.getAttribute('href')
     const titleText = this.firstChild.title
     carouselPara.innerHTML = titleText
     carousel.setAttribute('src', imageHref)
     event.preventDefault()
 }
+```
+
+Click on a thumbnail, and our page is broken. 
+
+This is due to the fact that the function appears after the `forEach` that assigns the event listener to the image thumbnails.
+
+Movinng the `forEach` below the function will work:
+
+```js
+const carouselLinks = document.querySelectorAll('.image-tn a')
+const carousel = document.querySelector('figure img')
+const carouselPara = document.querySelector('figcaption')
+
+var runCarousel = function(){
+    const imageHref = this.getAttribute('href')
+    const titleText = this.firstChild.title
+    carouselPara.innerHTML = titleText
+    carousel.setAttribute('src', imageHref)
+    event.preventDefault()
+}
+
+carouselLinks.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 ```
 
 Note the separation of thumbnails and figure in small screen view.
@@ -498,7 +339,7 @@ Correct wide screen view:
 }
 ```
 
-### The Panels (the third and final section)
+## 1.4.2. The Panels (the third and final section)
 
 Review the design. Let's try floats and absolute/relative positioning.
 
@@ -646,9 +487,100 @@ a[rel="alternate"] {
 }
 ```
 
-## Notes
+## 1.5. GIT and GITHUB
 
-### Links Smooth Scrolling
+Since we've just created a nice reusable setup we should save it.
+
+Git is a version control system originally invented for use developing Linux by Linus Torvalds. It is the standard version tool and integrates with Github to permit collaboration.
+
+There is a handy and very simple tutorial for Git on [the Git Website](https://try.github.io/levels/1/challenges/1) which is highly recommended for newbies.
+
+1. make sure terminal is in the `basic-dom` directory using `cd` (drag-and-drop, copy paste)
+1. initialize the repo:
+
+```sh
+git init
+```
+
+Configuring Git - only if you haven't done this before, and you only need to do this once:
+
+```sh
+git config
+git config --global user.name " ***** "
+git config --global user.email " ***** "
+git config --list
+```
+
+* Add (watch) all your files:
+
+```sh
+git add .
+```
+
+Once you have made changes you need to commit them
+
+```sh
+git commit -m 'initial commit'
+```
+
+Note: `git commit`  without the `-m` flag goes into VI - a text popular UNIX text editor. To avoid this always using the -m flag when committing. (If you end up in VI, hit ESC and type “:q” to exit.)
+
+Git Status
+
+```sh
+git status
+On branch master
+nothing to commit, working directory clean
+```
+
+* Create a new branch:
+
+```sh
+git branch <new branchname>
+git checkout <new branchname>
+git branch
+```
+
+To merge branches
+
+* make sure the branch you want to merge is clear (`$ git status`)
+* checkout the branch you want to merge into
+* run status on that branch too (make sure it is clear)
+
+```sh
+git checkout master
+git status
+git merge <new branchname>
+```
+
+Delete branches:
+
+```sh
+git branch -d <branchname>
+```
+
+Pushing Files to Remote Repos - Github
+
+Note: always create a .gitignore file to prevent local working / utility files from being pushed.
+
+```sh
+.sass_cache
+.DS_store
+node_modules
+```
+
+* Log into Github, create and new repo and follow the instructions e.g.:
+
+```sh
+git remote add origin https://github.com/<nameofgithubrepo>
+git push -u origin master
+```
+
+Finally - when downloading a github repo use the `clone` method to move it to your local disk while retaining the git history, branches, and etc.
+
+## 1.6. Notes
+
+### 1.6.1. Links Smooth Scrolling
 
 `<li><a href="#two">Summary</a></li>`
 
@@ -796,7 +728,7 @@ function jump(target, options) {
 
 }
 ```
-### Follow Along
+### 1.6.2. Follow Along
 
 ```js
 const triggers = document.querySelectorAll('a')
