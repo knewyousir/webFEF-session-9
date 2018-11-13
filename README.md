@@ -522,7 +522,7 @@ Redo the entire design - mobile first:
 }
 ```
 
-Final _panels.scss:
+Final `_panels.scss`:
 
 ```css
 .hentries {
@@ -597,6 +597,12 @@ var getData = function () {
   .then(json => addContent(json))
 }
 ```
+
+[New York Times API](https://developer.nytimes.com/)}
+
+`const nytapi = 'd7d88f32a04d4c6aab4e46735441d0ee';`
+
+`https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=d7d88f32a04d4c6aab4e46735441d0ee`
 
 ## 1.7. GIT and GITHUB
 
