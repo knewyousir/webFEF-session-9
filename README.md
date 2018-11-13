@@ -25,15 +25,15 @@ Continue on your final projects.
 
 Top of the page
 
-![image](/img/wide.png)
+![image](/other/img/wide.png)
 
 Mobile view
 
-![image](/img/mobile.png)
+![image](/other/img/mobile.png)
 
 Full page
 
-![image](/img/siteDesign.png)
+![image](/other/img/siteDesign.png)
 
 ## 1.2. Tooling
 
