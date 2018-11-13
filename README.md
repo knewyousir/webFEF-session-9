@@ -22,7 +22,8 @@
 
 ## 1.1. Homework
 
-Continue on your final projects.
+* Continue on your final projects
+* Add additional content to the page from the New York Times
 
 Top of the page
 
@@ -603,6 +604,94 @@ var getData = function () {
 `const nytapi = 'd7d88f32a04d4c6aab4e46735441d0ee';`
 
 `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=d7d88f32a04d4c6aab4e46735441d0ee`
+
+```js
+var getData = function () {
+	fetch('https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=d7d88f32a04d4c6aab4e46735441d0ee')
+  .then(response => response.json())
+  .then(json => addContent2(json))
+}
+```
+
+```js
+var addContent2 = function (stories) {
+
+	stories = stories.results
+	console.log(stories[0].abstract)
+  document.querySelector('.newsletter h3 a').innerText = stories[0].title;
+	document.querySelector('.newsletter p').innerText = stories[0].abstract;
+
+}
+```
+
+```js
+var addContent2 = function (stories) {
+
+	stories = stories.results
+	console.log(stories[0].abstract)
+  document.querySelector('.newsletter h3 a').innerText = stories[0].title;
+	document.querySelector('.newsletter p').innerText = stories[0].abstract;
+
+	var newsTitles = document.querySelectorAll('.hentry h4 a')
+
+	newsTitles.forEach(function (title) {
+		title.innerText = stories[1].title
+	})
+}
+```
+
+```js
+var addContent2 = function (stories) {
+
+	stories = stories.results
+	console.log(stories[0].abstract)
+  document.querySelector('.newsletter h3 a').innerText = stories[0].title;
+	document.querySelector('.newsletter p').innerText = stories[0].abstract;
+
+	var newsTitles = document.querySelectorAll('.hentry h4 a')
+	var newsStories = document.querySelectorAll('.hentry p')
+
+	newsTitles.forEach(function (title) {
+		title.innerText = stories[1].title
+	})
+
+	newsStories.forEach(function (abstract) {
+		abstract.innerText = stories[1].abstract
+	})
+}
+```
+
+```js
+for (var i = 0; i < 2; i++){
+  console.log(newsItems[i])
+}
+```
+
+```js
+for (var i = 0; i < 2; i++){
+  console.log(newsItems[i].querySelector('a').innerText)
+}
+```
+
+```js
+var addContent2 = function (stories) {
+
+	stories = stories.results
+	console.log(stories[0].abstract)
+  document.querySelector('.newsletter h3 a').innerText = stories[5].title;
+	document.querySelector('.newsletter p').innerText = stories[5].abstract;
+
+	var newsItems = document.querySelectorAll('.hentry')
+
+	for (var i = 0; i < 2; i++){
+		newsItems[i].querySelector('a').innerText = stories[i].title
+		newsItems[i].querySelector('p').innerText = stories[i].abstract
+	}
+
+}
+```
+
+
 
 ## 1.7. GIT and GITHUB
 
