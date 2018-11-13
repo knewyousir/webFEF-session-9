@@ -11,11 +11,12 @@
     - [1.3.3. REVIEW: removeActiveClass](#133-review-removeactiveclass)
   - [1.4. Image Carousel](#14-image-carousel)
     - [1.4.1. Image Carousel - JavaScript](#141-image-carousel---javascript)
-  - [1.4.2. The Panels (the third and final section)](#142-the-panels-the-third-and-final-section)
-  - [1.5. GIT and GITHUB](#15-git-and-github)
-  - [1.6. Notes](#16-notes)
-    - [1.6.1. Links Smooth Scrolling](#161-links-smooth-scrolling)
-    - [1.6.2. Follow Along](#162-follow-along)
+  - [1.5. The Panels (the third and final section)](#15-the-panels-the-third-and-final-section)
+  - [1.6. AJAX](#16-ajax)
+  - [1.7. GIT and GITHUB](#17-git-and-github)
+  - [1.8. Notes](#18-notes)
+    - [1.8.1. Links Smooth Scrolling](#181-links-smooth-scrolling)
+    - [1.8.2. Follow Along](#182-follow-along)
 
 <!-- /TOC -->
 
@@ -264,15 +265,6 @@ function runCarousel(){
 }
 ```
 
-<!-- Let's initialize the page to display the first image in our carousel. -->
-
-<!-- // var initCarousel = function () {
-// 	const imageHref = document.querySelector('.image-tn a').getAttribute('href')
-// 	const titleText = document.querySelector('.image-tn a').firstChild.title
-// 	carouselPara.innerHTML = titleText
-// 	carousel.setAttribute('src', imageHref)
-// } -->
-
 Let's use function expressions for this as we have done elsewhere.
 
 ```js
@@ -294,7 +286,7 @@ Click on a thumbnail, and our page is broken.
 
 This is due to the fact that the function appears after the `forEach` that assigns the event listener to the image thumbnails.
 
-Movinng the `forEach` below the function will work:
+Moving the `forEach` below the function will work:
 
 ```js
 const carouselLinks = document.querySelectorAll('.image-tn a')
@@ -309,6 +301,25 @@ var runCarousel = function(){
     event.preventDefault()
 }
 
+carouselLinks.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
+```
+
+Final:
+
+```js
+// Image Carousel
+
+var runCarousel = function () {
+	const carousel = document.querySelector('figure img')
+	const carouselPara = document.querySelector('figcaption')
+	const imageHref = this.getAttribute('href')
+	const titleText = this.firstChild.title
+	carouselPara.innerHTML = titleText
+	carousel.setAttribute('src', imageHref)
+	event.preventDefault()
+}
+
+const carouselLinks = document.querySelectorAll('.image-tn a')
 carouselLinks.forEach( carouselLink => carouselLink.addEventListener('click', runCarousel ))
 ```
 
@@ -339,11 +350,96 @@ Correct wide screen view:
 }
 ```
 
-## 1.4.2. The Panels (the third and final section)
+Further optimization of the entire script:
+
+```js
+document.addEventListener('click', (e) => {
+	// console.log(e.target)
+	if (e.target.id == 'pull') {
+		makeHamburgers(e.target)
+	}
+	else if (e.target.matches('.btn-list a')) {
+		videoSwitcher(e.target)
+	}
+	else if (e.target.matches('.nav-sub > li > a')) {
+		accordion()
+	}
+	else if (e.target.matches('.image-tn img')) {
+		runCarousel(e.target)
+	}
+}, false)
+
+// Functions called elsewhere
+var removeActiveClass = function (elements) {
+	document.querySelectorAll(elements).forEach( (elem) => {
+		elem.classList.remove('active')
+	})
+}
+
+var addActiveClass = function (element) {
+	element.classList.add('active')
+}
+
+// --- DOM Scripts ---- //
+
+// Hamburger
+var makeHamburgers = function (elem) {
+	event.preventDefault();
+	var body = document.querySelector('body');
+	if (body.classList.contains('show-nav')) {
+		body.classList.remove('show-nav');
+	} else {
+		body.classList.add('show-nav');
+	}
+}
+
+// Video switcher
+var videoSwitcher = function (elem) {
+	event.preventDefault();
+	const iFrame = document.querySelector('iframe')
+	removeActiveClass('.content-video a');
+	addActiveClass(event.target)
+	const videoToPlay = event.target.getAttribute('href');
+	iFrame.setAttribute('src', videoToPlay);
+}
+
+// Accordion
+var accordion = function () {
+	event.preventDefault()
+	removeActiveClass('.nav-sub > li > ul');
+	addActiveClass(event.target.nextElementSibling)
+}
+
+// Image Carousel
+
+var runCarousel = function (elem) {
+	event.preventDefault()
+	const carousel = document.querySelector('figure img')
+	const carouselPara = document.querySelector('figcaption')
+	const imageHref = elem.parentElement.getAttribute('href')
+	const titleText = elem.title
+	carouselPara.innerHTML = titleText
+	carousel.setAttribute('src', imageHref)
+}
+
+// ---- Initialization ---- //
+
+var setEverythingUp = function () {
+	document.querySelector('.btn-list a').classList.add('active');
+	document.querySelector('.nav-sub > li > a').nextElementSibling.classList.add('active')
+	document.querySelector('figure img').setAttribute('src', document.querySelector('.image-tn a').href)
+	document.querySelector('figure figcaption').innerText = document.querySelector('.image-tn a img').title
+}
+
+setEverythingUp()
+
+```
+
+## 1.5. The Panels (the third and final section)
 
 Review the design. Let's try floats and absolute/relative positioning.
 
-In _panels.scss:
+In `_panels.scss`:
 
 ```css
 .hentry {
@@ -477,17 +573,32 @@ a[rel="alternate"] {
 }
 ```
 
-with svg:
+## 1.6. AJAX
 
-```css
-a[rel="alternate"] {
-    padding-left: 20px;
-    background: url(../img/feed-icon.svg) no-repeat 0 50%;
-    background-size: contain;
+`https://jsonplaceholder.typicode.com/`
+
+```js
+var getData = function () {
+	fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log(json))
 }
 ```
 
-## 1.5. GIT and GITHUB
+```js
+var addContent = function(data){
+	document.querySelector('.newsletter h3 a').innerText = data[0].title;
+	document.querySelector('.newsletter p').innerText = data[0].body;
+}
+
+var getData = function () {
+	fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(response => response.json())
+  .then(json => addContent(json))
+}
+```
+
+## 1.7. GIT and GITHUB
 
 Since we've just created a nice reusable setup we should save it.
 
@@ -578,9 +689,9 @@ git push -u origin master
 
 Finally - when downloading a github repo use the `clone` method to move it to your local disk while retaining the git history, branches, and etc.
 
-## 1.6. Notes
+## 1.8. Notes
 
-### 1.6.1. Links Smooth Scrolling
+### 1.8.1. Links Smooth Scrolling
 
 `<li><a href="#two">Summary</a></li>`
 
@@ -728,7 +839,7 @@ function jump(target, options) {
 
 }
 ```
-### 1.6.2. Follow Along
+### 1.8.2. Follow Along
 
 ```js
 const triggers = document.querySelectorAll('a')
