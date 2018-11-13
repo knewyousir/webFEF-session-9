@@ -1,0 +1,16 @@
+.content-video {
+	background: #222;
+	.btn-list {
+		padding: 6px;
+		display: flex;
+		li {
+			margin: 1rem;
+		}
+		.active {
+			border-radius: $radius;
+			background: $link;
+			color: #fff;
+			padding: 0.5rem;
+		}
+	}
+}

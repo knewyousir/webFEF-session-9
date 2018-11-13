@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/front-end-foundations/session7#readme",
   "devDependencies": {
-    "browser-sync": "^2.23.6",
-    "concurrently": "^3.5.1",
-    "node-sass": "^4.7.2"
+    "browser-sync": "^2.26.3",
+    "concurrently": "^4.0.1",
+    "node-sass": "^4.10.0"
   }
 }

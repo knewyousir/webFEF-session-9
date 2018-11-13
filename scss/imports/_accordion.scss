@@ -1,0 +1,24 @@
+.nav-sub {
+	padding: 10px 20px;
+	background-color: $lt-yellow;
+	border: 1px solid $dk-yellow;
+	border-radius: $radius;
+	max-height: 180px; // NEW
+	overflow: scroll; // NEW
+	ul {
+		// display:none;
+		max-height: 0;
+		overflow: hidden;
+		transition: all .3s;
+		&.active {
+			// display: block;
+			max-height: 500px;
+		}
+	}
+	> li > a { 
+		font-weight:bold; 
+	}
+	ul li {
+		padding-left:12px;
+	}
+}

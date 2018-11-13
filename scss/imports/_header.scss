@@ -1,15 +1,14 @@
 header {
-	max-width: 940px;
+	max-width: $max-width;
+	padding-top: 3.75rem; //new
 	margin: 0 auto;
-	padding: 3rem;
 	h1 {
 		font-size: 3rem;
+		margin: 0;
 	}
-
 	p {
 		display: none;
-
-		@media (min-width: $break-sm) {
+		@media (min-width: $break-sm){
 			display: block;
 			font-size: 1.5rem;
 			text-transform: uppercase;
@@ -17,14 +16,13 @@ header {
 			margin-bottom: 1rem;
 		}
 	}
-
 	h1 + p {
 		padding-top: 1rem;
 		border-top: 3px double $dk-yellow;
 	}
-
 	p + p {
 		font-size: 1rem;
+		line-height: 1.1;
 		color: $med-gray;
 	}
 }

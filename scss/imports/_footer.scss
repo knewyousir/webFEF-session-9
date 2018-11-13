@@ -1,0 +1,36 @@
+footer {
+	margin-top: 40px;
+	padding-top: 40px;
+	background-color: $link;
+	min-height: 320px;
+	.siteinfo {
+		display: grid;
+		grid-template-rows: 3fr 3fr 3fr;
+		margin: 0 auto;
+		color: #fff;
+		padding: 1rem;
+		a {
+			color: #fff;
+		}
+		p {
+			margin-top: 0;
+		}
+		ul {
+			grid-row-start: 1;
+		}
+		.vcard {
+			grid-row-start: 2;
+		}
+		@media (min-width: $break-sm) {
+			grid-template-columns: 6fr 3fr 3fr;
+			grid-column-gap: 4rem;
+			max-width: $max-width;
+			ul {
+				grid-row-start: auto;
+			}
+			.vcard {
+				grid-row-start: auto;
+			}
+		}
+	}
+}
