@@ -12,3 +12,14 @@ header,
 section {
   padding: 1rem;
 }
+
+.secondary article {
+  display: flex;
+  flex-direction: column;
+  figure {
+      order: 2;
+      @media(min-width: $break-med){
+          order: 0;
+      }
+  }
+}
